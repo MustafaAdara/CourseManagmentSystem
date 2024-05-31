@@ -1,0 +1,84 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "EditStudent";
+}
+
+<h1>Edit Student</h1>
+<br />
+<div class="container">
+    <form asp-action="SaveEdit" asp-controller="Student" asp-route-id="@Model.Id">
+        <div class="col-12">
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                <div class=" col-md-4 mb-3">
+                    <input asp-for="Name" class="form-control" value="@Model.Name" />
+                </div>
+
+            </div>
+            <br />
+            <div class="form-group row">
+                <label asp-for="BirthDate" class="col-sm-2 col-form-label"></label>
+                <div class=" col-md-4 mb-3">
+                    <input asp-for="BirthDate" class="form-control col-md-4" value="@Model.BirthDate.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <br />
+            <div class="form-group row">
+                <label asp-for="Address" class="col-sm-2 col-form-label"></label>
+                <div class=" col-md-4 mb-3">
+                    <input asp-for="Address" class="form-control col-md-4" value="@Model.Address" />
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group row">
+                <label asp-for="@Model.Email" class="col-sm-2 col-form-label"></label>
+                <div class=" col-md-4 mb-3">
+                    <input asp-for="Address" class="form-control col-md-4" value="@Model.Email" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <label asp-for="@Model.Image" class="col-sm-2 col-form-label"></label>
+                <div class=" col-md-4 mb-3">
+                    <input asp-for="Address" class="form-control col-md-4" value="@Model.Image" type="file" />
+                </div>
+            </div>
+            <br />
+            <div>
+                <div class="form-group">
+                    <label>Select Subjects:</label>
+                    <br />
+                    <div class="checkbox" style="margin-left:25px">
+                        @foreach (Course subject in ViewBag.Subjects)
+                        {
+                            // the any linq method that returns true or false based on the student selction of a specific subject
+                            bool isChecked = Model.StudentCourses.Any(ss => ss.CourseId == subject.Id);
+                            <label class="checkbox">
+                                @* // and here the toggle for the checked  *@
+                                <input type="checkbox" name="selectedSubjects" value="@subject.Id" class="form-check-input" @(isChecked ? "checked" : "") />
+                                @subject.Name
+                            </label>
+                            <br />
+                        }
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-danger" asp-action="Back" asp-controller="Student">Back</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+
+
+        </div>
+
+    </form>
+</div>
+

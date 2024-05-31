@@ -1,0 +1,53 @@
+﻿@model List<Student>
+@{
+    ViewData["Title"] = "GetAllStudent";
+}
+
+<h1 class="text-center">Get All Student</h1>
+<br />
+<form asp-action="AddStudent" asp-controller="Student" class="form-group d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary">Add New Student</button>
+</form>
+
+<br />
+<table class="table table-hover table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Day of Birth</th>
+            <th>E-mail</th>
+            <th>Image</th>
+            <th>Subjects</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var student in Model)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.Name</td>
+                <td>@student.Address</td>
+                <td>@student.BirthDate.ToString("yyyy-MM-dd")</td>
+                <td>@student.Email</td>
+                <td>@student.Image</td>
+                <td>@foreach (var subject in student.StudentCourses)
+                    {
+                        <span>@subject.Course.Name </span>
+                        
+                    }
+                </td>
+                <td><a asp-controller="Student" asp-action="EditStudent" asp-route-id="@student.Id">Edit</a> <a asp-controller="Student" asp-action="Details" asp-route-id="@student.Id" style="color: indigo" >Details</a> </td>
+                <td><a asp-controller="Student" asp-action="DeleteStudent" asp-route-id="@student.Id" style="color: red" onclick="return showAlert()">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function showAlert() {
+        alert("Are You Sure for DELETING this Student ?");
+    }
+</script>

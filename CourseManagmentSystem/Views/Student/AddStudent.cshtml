@@ -1,0 +1,324 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "AddStudent";
+    SelectList Departments = new SelectList(ViewBag.DepartNames, "Id", "Name");
+}
+<h1 class="text-center">Create Student</h1>
+<br />
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 65vh;">
+    <form asp-action="SaveCreate" asp-controller="Student" class="col-md-6">
+        <div class="col">
+
+            <div class="form-group row">
+                <label asp-for="@Model.Name" class="col-sm-3 col-form-label"></label>
+                <div class="col-md-9">
+                    <input asp-for="@Model.Name" class="form-control">
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <label asp-for="@Model.BirthDate" class="col-sm-3 col-form-label"></label>
+                <div class="col-md-9">
+                    <input asp-for="@Model.BirthDate" class="form-control">
+                    <span asp-validation-for="@Model.BirthDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <label asp-for="@Model.Address" class="col-sm-3 col-form-label"></label>
+                <div class="col-md-9">
+                    <input asp-for="@Model.Address" class="form-control" required>
+                    <span asp-validation-for="@Model.Address" class="text-danger"></span>
+
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <label asp-for="@Model.Email" class="col-sm-3 col-form-label"></label>
+                <div class="col-md-9">
+                    <input asp-for="@Model.Email" class="form-control"> </input>
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <label asp-for="@Model.Image" class="col-sm-3 col-form-label"></label>
+                <div class="col-md-9">
+                    <input asp-for="@Model.Image" class="form-control" type="file"> </input>
+                    <span asp-validation-for="@Model.Image" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <label asp-for="@Model.DepartmentId" class="col-sm-3 col-form-label"></label>
+                <div class="col-md-9">
+                    <select asp-for="DepartmentId" asp-items="Departments" class="form-control"> </select>
+                    <span asp-validation-for="@Model.DepartmentId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br/>
+
+            <fieldset class="row mb-3">
+                <legend class="col-form-label col-sm-2 pt-0">Subjects</legend>
+                @foreach (Course subject in ViewBag.Subjects)
+                {
+                    <div class="row mb-3">
+                        <div class="col-md-10 offset-md-2">
+                            <div class="form-check">
+
+                                <label class="form-check-label" for="gridCheck1">
+                                    <input type="checkbox" name="selectedSubjects" value="@subject.Id" class="form-check-input" />
+                                    @subject.Name
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </fieldset>
+
+            <div class="form-group d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@* <section class="h-100 h-custom" style="background-color: #8fc4b7;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+                         class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                         alt="Sample photo">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
+
+                        <form class="px-md-2">
+
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input type="text" id="form3Example1q" class="form-control" />
+                                <label class="form-label" for="form3Example1q">Name</label>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+
+                                    <div data-mdb-input-init class="form-outline datepicker">
+                                        <input type="text" class="form-control" id="exampleDatepicker1" />
+                                        <label for="exampleDatepicker1" class="form-label">Select a date</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 mb-4">
+
+                                    <select data-mdb-select-init>
+                                        <option value="1" disabled>Gender</option>
+                                        <option value="2">Female</option>
+                                        <option value="3">Male</option>
+                                        <option value="4">Other</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+
+                                <select data-mdb-select-init>
+                                    <option value="1" disabled>Class</option>
+                                    <option value="2">Class 1</option>
+                                    <option value="3">Class 2</option>
+                                    <option value="4">Class 3</option>
+                                </select>
+
+                            </div>
+
+                            <div class="row mb-4 pb-2 pb-md-0 mb-md-5">
+                                <div class="col-md-6">
+
+                                    <div data-mdb-input-init class="form-outline">
+                                        <input type="text" id="form3Example1w" class="form-control" />
+                                        <label class="form-label" for="form3Example1w">Registration code</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-lg mb-1">Submit</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        (min-width: 1025px) {
+            .h-custom
+
+        {
+            height: 100vh !important;
+        }
+
+        }
+    </style>
+</section>
+
+<section class="h-100 bg-dark">
+    <style>
+        .card-registration .select-input.form-control[readonly]:not([disabled]) {
+            font-size: 1rem;
+            line-height: 2.15;
+            padding-left: .75em;
+            padding-right: .75em;
+        }
+
+        .card-registration .select-arrow {
+            top: 13px;
+        }
+    </style>
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="col-xl-6 d-none d-xl-block">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
+                                 alt="Sample photo" class="img-fluid"
+                                 style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card-body p-md-5 text-black">
+                                <h3 class="mb-5 text-uppercase">Student registration form</h3>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <input type="text" id="form3Example1m" class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example1m">First name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <input type="text" id="form3Example1n" class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example1n">Last name</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <input type="text" id="form3Example1m1" class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example1m1">Mother's name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <input type="text" id="form3Example1n1" class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example1n1">Father's name</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <input type="text" id="form3Example8" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example8">Address</label>
+                                </div>
+
+                                <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                                    <h6 class="mb-0 me-4">Gender: </h6>
+
+                                    <div class="form-check form-check-inline mb-0 me-4">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                                               value="option1" />
+                                        <label class="form-check-label" for="femaleGender">Female</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline mb-0 me-4">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
+                                               value="option2" />
+                                        <label class="form-check-label" for="maleGender">Male</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline mb-0">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
+                                               value="option3" />
+                                        <label class="form-check-label" for="otherGender">Other</label>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+
+                                        <select data-mdb-select-init>
+                                            <option value="1">State</option>
+                                            <option value="2">Option 1</option>
+                                            <option value="3">Option 2</option>
+                                            <option value="4">Option 3</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+
+                                        <select data-mdb-select-init>
+                                            <option value="1">City</option>
+                                            <option value="2">Option 1</option>
+                                            <option value="3">Option 2</option>
+                                            <option value="4">Option 3</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <input type="text" id="form3Example9" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example9">DOB</label>
+                                </div>
+
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <input type="text" id="form3Example90" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example90">Pincode</label>
+                                </div>
+
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <input type="text" id="form3Example99" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example99">Course</label>
+                                </div>
+
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <input type="text" id="form3Example97" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example97">Email ID</label>
+                                </div>
+
+                                <div class="d-flex justify-content-end pt-3">
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-light btn-lg">Reset all</button>
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg ms-2">Submit form</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section> *@
